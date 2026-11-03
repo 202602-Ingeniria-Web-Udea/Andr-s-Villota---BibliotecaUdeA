@@ -1,0 +1,1 @@
+import {currentUser} from "@/lib/auth";import {BooksClient} from "@/components/books-client";export default async function BooksPage(){const user=await currentUser();return <BooksClient admin={user?.role==="ADMIN"}/>}

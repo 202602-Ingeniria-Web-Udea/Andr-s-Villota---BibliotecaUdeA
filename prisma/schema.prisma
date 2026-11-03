@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum MovementType {
+  ENTRY
+  LOAN
+  RETURN
+}
+
+model User {
+  id String @id @default(cuid())
+  name String
+  email String @unique
+  password String
+  role Role @default(USER)
+  image String?
+  createdAt DateTime @default(now())
+  movements Movement[]
+  books Book[]
+}
+
+model Book {
+  id String @id @default(cuid())
+  title String
+  author String
+  isbn String? @unique
+  category String @default("General")
+  stock Int @default(0)
+  createdAt DateTime @default(now())
+  createdById String
+  createdBy User @relation(fields: [createdById], references: [id])
+  movements Movement[]
+}
+
+model Movement {
+  id String @id @default(cuid())
+  type MovementType
+  quantity Int
+  note String?
+  borrower String?
+  createdAt DateTime @default(now())
+  bookId String
+  book Book @relation(fields: [bookId], references: [id])
+  userId String
+  user User @relation(fields: [userId], references: [id])
+  @@index([bookId, createdAt])
+}

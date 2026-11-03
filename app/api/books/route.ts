@@ -1,0 +1,6 @@
+import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import { requireUser } from "@/lib/auth";
+import { error,fail } from "@/lib/api";
+export async function GET(){try{if(!await requireUser())return error("No autorizado",401);return NextResponse.json(await prisma.book.findMany({include:{createdBy:{select:{name:true}},_count:{select:{movements:true}}},orderBy:{createdAt:"desc"}}))}catch(e){return fail(e)}}
+export async function POST(req:Request){try{const user=await requireUser("ADMIN");if(!user)return error("Solo el administrador puede crear libros",403);const body=await req.json();const title=String(body.title??"").trim(),author=String(body.author??"").trim(),category=String(body.category??"General").trim(),isbn=String(body.isbn??"").trim(),stock=Number(body.stock);if(!title||!author||!Number.isSafeInteger(stock)||stock<0)return error("Revisa el título, autor y existencias iniciales");const book=await prisma.book.create({data:{title,author,category:category||"General",isbn:isbn||null,stock,createdById:user.id,...(stock>0?{movements:{create:{type:"ENTRY",quantity:stock,userId:user.id,note:"Existencias iniciales"}}}:{})}});return NextResponse.json(book,{status:201})}catch(e){return fail(e)}}

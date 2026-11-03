@@ -1,0 +1,1 @@
+import {currentUser} from "@/lib/auth";import {redirect} from "next/navigation";import {UsersClient} from "@/components/users-client";export default async function UsersPage(){const user=await currentUser();if(user?.role!=="ADMIN")redirect("/home");return <UsersClient/>}
