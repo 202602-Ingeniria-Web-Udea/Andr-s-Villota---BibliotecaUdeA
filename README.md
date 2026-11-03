@@ -48,11 +48,13 @@ Para facilitar la evaluación del proyecto, se han creado dos cuentas de demostr
 
 **Permisos:** acceso al panel general, consulta del catálogo de libros y registro de transacciones. No puede crear libros ni administrar usuarios.
 
-## Aplicación desplegada
+### Aplicación desplegada
 
-La aplicación se encuentra desplegada en Vercel y utiliza PostgreSQL mediante Supabase.
+El Sistema de Gestión de Biblioteca UdeA se encuentra desplegado en Vercel y utiliza una base de datos PostgreSQL alojada en Supabase.
 
-**Enlace de acceso:** Pendiente de agregar después del despliegue.
+Enlace de la aplicación: https://biblioteca-udea.vercel.app
+
+Repositorio del proyecto: https://github.com/202602-Ingeniria-Web-Udea/Andr-s-Villota---BibliotecaUdeA
 
 ## Despliegue en Vercel
 1. Crear un repositorio `nombreEquipo-Biblioteca` en la organización del curso.
