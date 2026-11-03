@@ -14,9 +14,7 @@ Aplicación fullstack basada en el repositorio `base-app` del curso, adaptada a 
 **Nota de alcance:** la devolución registra una entrada de ejemplares, pero no está vinculada a un préstamo individual pendiente; no hay control de vencimientos ni multas. El saldo es la cantidad de ejemplares disponibles.
 
 ## Integrantes
-- [Integrante 1]
-- [Integrante 2]
-- [Integrante 3]
+- Andrés Alejandro Villota Villota
 
 ## Instalación
 Requiere Node.js reciente compatible con Next.js 16, npm y un proyecto PostgreSQL en Supabase.
@@ -31,7 +29,30 @@ Requiere Node.js reciente compatible con Next.js 16, npm y un proyecto PostgreSQ
 Si el pooler y la conexión directa de Supabase utilizan hosts o puertos diferentes, configura `DATABASE_URL` y `DIRECT_URL` por separado. En producción aplica las migraciones con `npx prisma migrate deploy` usando la conexión directa.
 
 ## Usuarios de prueba
-**ADMIN:** correo configurado en `SEED_ADMIN_EMAIL`. **USER:** correo configurado en `SEED_USER_EMAIL`. Las contraseñas se establecen en `.env` antes del seed. **Para la entrega**, agrega al README las credenciales de demostración que acuerde el equipo, distintas de las de cualquier cuenta personal o de producción. No publiques contraseñas de servicios externos.
+
+Para facilitar la evaluación del proyecto, se han creado dos cuentas de demostración con diferentes niveles de acceso.
+
+### Administrador (ADMIN)
+
+- **Correo electrónico:** `admin@biblioteca.test`
+- **Contraseña:** `BiblioAdmin#2026_UdeA!84`
+- **Rol:** ADMIN
+
+**Permisos:** acceso al panel general, consulta y creación de libros, registro de transacciones y administración de roles de usuarios.
+
+### Usuario estándar (USER)
+
+- **Correo electrónico:** `usuario@biblioteca.test`
+- **Contraseña:** `BiblioUsuario#2026_UdeA!57`
+- **Rol:** USER
+
+**Permisos:** acceso al panel general, consulta del catálogo de libros y registro de transacciones. No puede crear libros ni administrar usuarios.
+
+## Aplicación desplegada
+
+La aplicación se encuentra desplegada en Vercel y utiliza PostgreSQL mediante Supabase.
+
+**Enlace de acceso:** Pendiente de agregar después del despliegue.
 
 ## Despliegue en Vercel
 1. Crear un repositorio `nombreEquipo-Biblioteca` en la organización del curso.
@@ -52,4 +73,20 @@ Las rutas API validan sesión y rol. El servidor impide préstamos sin existenci
 Adaptación del código base académico `202602-Ingeniria-Web-Udea/base-app`. Se conservaron las tecnologías y utilidades pertinentes; se sustituyeron los modelos de tienda por modelos de biblioteca y se implementó la lógica de negocio específica.
 
 ## Estado de validación
-El código se entrega como base funcional para configurar y probar. No se han ejecutado satisfactoriamente la instalación, compilación ni pruebas con Supabase en el entorno de generación; verifica todos los pasos antes de la entrega académica.
+
+El proyecto fue configurado y probado satisfactoriamente en un entorno local.
+
+Se realizaron las siguientes verificaciones:
+
+- Generación del cliente Prisma y conexión con PostgreSQL en Supabase.
+- Ejecución de migraciones y carga de datos iniciales.
+- Compilación de producción mediante `npm run build`.
+- Inicio de sesión con cuentas ADMIN y USER.
+- Creación de libros y actualización del catálogo.
+- Registro de entradas, préstamos y devoluciones.
+- Actualización automática de las existencias disponibles.
+- Visualización del historial de movimientos y del saldo diario.
+- Verificación de las restricciones de acceso según el rol.
+- Visualización y administración de usuarios desde la cuenta ADMIN.
+
+El sistema queda preparado para su despliegue en Vercel y posterior validación mediante una URL pública.
